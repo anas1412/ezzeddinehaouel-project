@@ -1,6 +1,16 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        app_name: 'Cabinet Ezzeddine Haouel'
+        app_version: '1.0.0'
+        app_author: 'Anas BASSOUMI'
+        app_email: 'anas.bassoumi@gmail.com'
+        #exception_controller: null # Disable the built-in exception controller
+        #exception_controller: App\Controller\ExceptionController::show404
+        default_path: '%kernel.project_dir%/templates'
+        strict_variables: '%kernel.debug%'
 
 when@test:
     twig:
         strict_variables: true
+        default_path: '%kernel.project_dir%/templates'

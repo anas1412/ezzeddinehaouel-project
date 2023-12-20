@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client
+{% endblock %}
+
+{% block heading %}{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+
+				<div class="card-body">
+					<div
+						class="card shadow mb-4">
+						<!-- Card Header - Dropdown -->
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<i class="fas fa-id-card"></i>
+							<h6 class="m-0 font-weight-bold text-primary">{{ client.name }}</h6>
+							<div class="dropdown no-arrow">
+								<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item" href="{{ path('app_client_edit', {'id': client.id}) }}">Modifier</a>
+									<div class="dropdown-divider"></div>
+									{{ include('client/_delete_form2.html.twig') }}
+								</div>
+
+
+							</div>
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="table-responsive mx-auto">
+								<table class="table">
+									<tbody>
+										<tr>
+											<th>Adresse</th>
+											<td>{{ client.adresse }}</td>
+										</tr>
+										<tr>
+											<th>Numéro de téléphone</th>
+											<td>{{ client.number }}</td>
+										</tr>
+										<tr>
+											<th>M.F.</th>
+											<td>{{ client.mf}}</td>
+										</tr>
+										<tr>
+											<th>Date de création</th>
+											<td>{{ client.createdAt ? client.createdAt|date('d/m/Y H:i') : '' }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div
+		class="container mt-4">
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">List des honoraires par client</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead class="thead-dark">
+							<tr>
+								<th>Note</th>
+								<th>Objet</th>
+								<th>Date</th>
+								<th>PDF</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tfoot class="thead-dark">
+							<tr>
+								<th>Note</th>
+								<th>Objet</th>
+								<th>Date</th>
+								<th>PDF</th>
+								<th>Actions</th>
+							</tr>
+						</tfoot>
+					</tr>
+				</tfoot>
+				<tbody>
+					{% for honoraire in pagination %}
+						<tr class="honoraire-row">
+							<td>{{ honoraire.note }}</td>
+							<td>{{ honoraire.objet }}</td>
+							<td>{{ honoraire.createdAt ? honoraire.createdAt|date('d/m/Y H:i') : '' }}</td>
+							<td>
+								<a href="{{ path('app_pdf', {'honoraireId': honoraire.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+									<i class="fas fa-download fa-sm text-white-50"></i>
+								</a>
+							</td>
+
+							<td>
+								<div style="display: inline-block; margin-right: 5px;">
+									<a class="btn btn-info btn-sm" href="{{ path('app_honoraire_show', {'id': honoraire.id}) }}">
+										<i class="fas fa-eye"></i>
+									</a>
+								</div>
+								<div style="display: inline-block; margin-right: 5px;">
+									<a class="btn btn-primary btn-sm" href="{{ path('app_honoraire_edit', {'id': honoraire.id}) }}">
+										<i class="fas fa-edit"></i>
+									</a>
+								</div>
+								<div style="display: inline-block; margin-right: 5px;">
+									{{ include('honoraire/_delete_form.html.twig') }}
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div style="text-align: center;">
+				<div class="navigation">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row mt-4">
+	<div class="col-12">
+		<a href="{{ path('app_honoraire_new', {'clientId': client.id}) }}" class="btn btn-success btn-icon-split btn-sm">
+			<span class="icon text-white-50">
+				<i class="fas fa-user-plus"></i>
+
+			</span>
+			<span class="text">Ajouter</span>
+		</a>
+	</div>
+</div></div>{% block javascripts %}
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+const searchInput = document.getElementById('search-input');
+const honoraireRows = document.querySelectorAll('.honoraire-row');
+
+document.getElementById('search-button').addEventListener('click', function () {
+const searchText = searchInput.value.toLowerCase();
+honoraireRows.forEach(function (row) {
+const rowData = row.textContent.toLowerCase();
+row.style.display = rowData.includes(searchText) ? 'table-row' : 'none';
+});
+});
+
+searchInput.addEventListener('input', function () {
+const searchText = searchInput.value.toLowerCase();
+honoraireRows.forEach(function (row) {
+const rowData = row.textContent.toLowerCase();
+row.style.display = rowData.includes(searchText) ? 'table-row' : 'none';
+});
+});
+});
+</script>{% endblock %}{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Honoraire
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+
+				<div class="card-body">
+					<div
+						class="card shadow mb-4">
+						<!-- Card Header - Dropdown -->
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<i class="fas fa-file-invoice"></i>
+							<h6 class="m-0 font-weight-bold text-primary">Note d'honoraire: Nº{{ honoraire.note }}</h6>
+							<div class="dropdown no-arrow">
+								<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item" href="{{ path('app_pdf', {'honoraireId': honoraire.id}) }}">Générer en PDF</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{{ path('app_honoraire_edit', {'id': honoraire.id}) }}">Modifier</a>
+									<a class="dropdown-item" href="{{ path('app_client_edit', {'id': honoraire.client.id}) }}">Modifier client</a>
+									<div class="dropdown-divider"></div>
+									{{ include('honoraire/_delete_form2.html.twig') }}
+								</div>
+
+
+							</div>
+						</div>
+						<!-- Card Body -->
+						<div class="card-body">
+							<div class="table-responsive mx-auto">
+								<table class="table">
+									<tbody>
+										<tr>
+											<th>Client</th>
+											<td>{{ honoraire.client.name }}</td>
+										</tr>
+										<tr>
+											<th>Adresse</th>
+											<td>{{ honoraire.client.adresse }}</td>
+										</tr>
+										<tr>
+											<th>M.F.</th>
+											<td>{{ honoraire.client.mf}}</td>
+										</tr>
+										<tr>
+											<th>Objet</th>
+											<td>{{ honoraire.objet }}</td>
+										</tr>
+										<tr>
+											<th>Montant H.T</th>
+											<td>{{ honoraire.montantht|number_format(3, '.', ',') }}</td>
+										</tr>
+										<tr>
+											<th>T.V.A
+												{{ tva }}%</th>
+											<td>{{ honoraire.tva|number_format(3, '.', ',') }}</td>
+										</tr>
+										<tr>
+											<th>Montant T.T.C</th>
+											<td>{{ honoraire.montantttc|number_format(3, '.', ',') }}</td>
+										</tr>
+										<tr>
+											<th>RS
+												{{ rs }}%</th>
+											<td>{{ honoraire.rs|number_format(3, '.', ',') }}</td>
+										</tr>
+										<tr>
+											<th>Timbre Fiscal</th>
+											<td>{{ honoraire.timbrefiscal|number_format(3, '.', ',') }}</td>
+										</tr>
+										<tr>
+											<th>Net à Payer</th>
+											<td>{{ honoraire.netapayer|number_format(3, '.', ',') }}</td>
+										</tr>
+										<tr>
+											<th>Date de création</th>
+											<td>{{ honoraire.createdAt ? honoraire.createdAt|date('d/m/Y H:i') : '' }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<a class="btn btn-primary btn-block" href="{{ path('app_client_honoraires_index', {'id': honoraire.client.id}) }}">Retourner vers les honoraires de ce client</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

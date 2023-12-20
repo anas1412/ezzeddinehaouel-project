@@ -1,0 +1,51 @@
+<div class="container mt-4">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+
+					{{ form_start(form) }}
+
+					<div
+						class="form-group mb-4">
+						<!-- Added mb-4 class for margin-bottom -->
+						<i class="fas fa-user"></i>
+						{{ form_row(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Name'}, 'label': false}) }}
+					</div>
+
+					<div
+						class="form-group mb-4">
+						<!-- Added mb-4 class for margin-bottom -->
+						<i class="fas fa-map-marker-alt"></i>
+						{{ form_row(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Address'}, 'label': false}) }}
+					</div>
+
+					<div
+						class="form-group mb-4">
+						<!-- Added mb-4 class for margin-bottom -->
+						<i class="fas fa-phone"></i>
+						{{ form_row(form.number, {'attr': {'class': 'form-control', 'placeholder': 'Number'}, 'label': false}) }}
+					</div>
+
+					<div
+						class="form-group mb-4">
+						<!-- Added mb-4 class for margin-bottom -->
+						<i class="fas fa-id-card"></i>
+						{{ form_row(form.mf, {'attr': {'class': 'form-control', 'placeholder': 'MF'}, 'label': false}) }}
+					</div>
+
+					{# Exclude createdAt field by not rendering it #}
+					{# {{ form_row(form.createdAt) }} #}
+
+					<button
+						class="btn btn-primary btn-block mt-4">
+						<!-- Added mt-4 class for margin-top -->
+						<i class="fas fa-save"></i>
+					</button>
+
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
